@@ -1763,10 +1763,10 @@
   dependencies:
     mkdirp "^1.0.4"
 
-"@questdb/sql-grammar@1.0.5":
-  version "1.0.5"
-  resolved "https://registry.yarnpkg.com/@questdb/sql-grammar/-/sql-grammar-1.0.5.tgz#9001db1e9863d5c304b5ebde24114e33fbeeaa61"
-  integrity sha512-RVpUSfhPpjjQ4h5k/tV8Ai8HTj0pWrcpCuklPUjO32o/xN+lTood1r43a1Bzk5ngad6+heVlnmSiG/XGGwMOxw==
+"@questdb/sql-grammar@1.0.6":
+  version "1.0.6"
+  resolved "https://registry.yarnpkg.com/@questdb/sql-grammar/-/sql-grammar-1.0.6.tgz#b27fe8292d46e72d76264ee1c6c88e7670a344b8"
+  integrity sha512-nNlyoSyKNwOq3zS0d1+VqZiEFyQ0cW140WRTeb+ko5sSKAF8VegVV7Ll67THfVG3cPlqiiG6Iy3hYEp3feouzw==
 
 "@rollup/plugin-node-resolve@^7.1.1":
   version "7.1.3"

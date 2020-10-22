@@ -329,3 +329,12 @@ WHERE ts in('2018-01-01T00:00:23.000000Z' , '2018-01-01T00:00:23.500000Z');
 | 2018-01-01T00:00:23.000000Z | 123.4 |
 | ...                         | ...   |
 | 2018-01-01T00:00:23.500000Z | 131.5 |
+
+#### Alternative syntax
+
+Explicit ranges are also available using the `BETWEEN` keyword:
+
+```questdb-sql title="Explicit range - alternative syntax"
+SELECT * FROM scores
+WHERE ts BETWEEN '2018-01-01T00:00:23.000000Z' AND '2018-01-01T00:00:23.500000Z';
+```

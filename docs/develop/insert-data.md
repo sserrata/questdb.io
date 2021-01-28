@@ -100,6 +100,18 @@ import TabItem from "@theme/TabItem"
 curl -F data=@data.csv http://localhost:9000/imp
 ```
 
+The following query designates a timestamp column, applies partitioning based on
+`MONTH` and renames the table. For more details on the available parameters for
+CSV import via REST, refer to the
+[import endpoint reference](https://questdb.io/docs/reference/api/rest#overview).
+
+```shell
+curl -F data=@data.csv http://localhost:9000/imp\
+\?name\=my_table\
+\&timestamp\=timestamp\
+\&partitionBy\=MONTH
+```
+
 </TabItem>
 
 <TabItem value="nodejs">

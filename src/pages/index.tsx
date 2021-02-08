@@ -708,7 +708,7 @@ ${mergeQuery}`}
 
 const Home = () => {
   const { siteConfig } = useDocusaurusContext()
-  const title = "QuestDB"
+  const title = "QuestDB | Time series data, faster"
 
   return (
     <PageLayout

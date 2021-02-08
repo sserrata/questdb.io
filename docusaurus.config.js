@@ -51,7 +51,7 @@ function variable() {
 }
 
 const config = {
-  title: "Time series data, faster",
+  title: "QuestDB",
   tagline: "QuestDB is the fastest open source time series database",
   url: `https://${customFields.domain}`,
   baseUrl: "/",

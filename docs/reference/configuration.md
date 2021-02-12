@@ -226,11 +226,11 @@ QuestDB.
 | cairo.sql.insert.model.pool.capacity         | 64                | Size of InsertModel pool in SqlParser.                                                                                                                                                                                   |
 | cairo.sql.copy.model.pool.capacity           | 32                | Size of CopyModel pool in SqlParser.                                                                                                                                                                                     |
 | cairo.sql.copy.buffer.size                   | 2m                | Size of buffer used when copying tables.                                                                                                                                                                                 |
-| cairo.sql.double.cast.scale                  | 12                |                                                                                                                                                                                                                          |
-| cairo.sql.float.cast.scale                   | 4                 |
+| cairo.sql.double.cast.scale                  | 12                | Maximum number of decimal places that types cast as doubles have                                                                                                                                                                                                                      |
+| cairo.sql.float.cast.scale                   | 4                 | Maximum number of decimal places that types cast as floats have
 | cairo.sql.copy.formats.file                  | /text_loader.json | Name of file with user's set of date and timestamp formats.                                                                                                                                                              |
-| cairo.date.locale                            | en                |                                                                                                                                                                                                                          |
-| cairo.timestamp.locale                       | en                |                                                                                                                                                                                                                          |
+| cairo.date.locale                            | en                | The locale to handle date types                                                                                                                                                                                                                         |
+| cairo.timestamp.locale                       | en                | The locale to handle timestamp types                                                                                                                                                                                                                         |
 
 ### Postgres wire protocol
 
@@ -239,7 +239,7 @@ PostreSQL wire protocol.
 
 | Property                            | Default      | Description |
 | ----------------------------------- | ------------ | ----------- |
-| pg.enabled                          | true         |             |
+| pg.enabled                          | true         |    Configuration for enabling or diabling the Postres interface         |
 | pg.net.active.connection.limit      | 10           |    The number of simultaneous PostgreSQL connections to the server. This value is intended to control server memory consumption.         |
 | pg.net.bind.to                      | 0.0.0.0:8812 |    IP address and port of PostgreSQL server. 0 means that the server will bind to all network interfaces. You can specify IP address of any individual network interface on your system         |
 | pg.net.event.capacity               | 1024         |    Internal IO event queue capacity (EPoll, KQqueu, Select). Size of these queues **must be larger than** `active.connection.limit`         |
@@ -249,23 +249,23 @@ PostreSQL wire protocol.
 | pg.net.listen.backlog               | 50000        |    Backlog argument value for [listen()](https://man7.org/linux/man-pages/man2/listen.2.html) call.         |
 | pg.net.recv.buf.size                | -1           |    Maximum send buffer size on each TCP socket. If value is -1 socket send buffer remains unchanged from OS default.         |
 | pg.net.send.buf.size                | -1           |    Maximum receive buffer size on each TCP socket. If value is -1, the socket receive buffer remains unchanged from OS default.         |
-| pg.character.store.capacity         | 4096         |             |
-| pg.character.store.pool.capacity    | 64           |             |
-| pg.connection.pool.capacity         | 64           |             |
-| pg.password                         | quest        |             |
-| pg.user                             | admin        |             |
+| pg.character.store.capacity         | 4096         |    Size of the CharacterStore         |
+| pg.character.store.pool.capacity    | 64           |    Size of the CharacterStore pool capacity        |
+| pg.connection.pool.capacity         | 64           |    The maximum amount of pooled connections this interface may have          |
+| pg.password                         | quest        |    Postgres database password         |
+| pg.user                             | admin        |    Postgres database username         |
 | pg.factory.cache.column.count       | 16           |             |
 | pg.factory.cache.row.count          | 16           |             |
 | pg.idle.recv.count.before.giving.up | 10000        |             |
 | pg.idle.send.count.before.giving.up | 10000        |             |
 | pg.max.blob.size.on.query           | 512k         |             |
-| pg.recv.buffer.size                 | 1M           |             |
-| pg.send.buffer.size                 | 1M           |             |
-| pg.date.locale                      | en           |             |
-| pg.timestamp.locale                 | en           |             |
-| pg.worker.count                     | 2            |             |
-| pg.worker.affinity                  | -1,-1        |             |
-| pg.halt.on.error                    | false        |             |
+| pg.recv.buffer.size                 | 1M           |    Size of the buffer for receiving data         |
+| pg.send.buffer.size                 | 1M           |    Size of the buffer for sending data          |
+| pg.date.locale                      | en           |    The locale to handle date types         |
+| pg.timestamp.locale                 | en           |    The locale to handle timestamp types         |
+| pg.worker.count                     | 2            |    Number of dedicated worker threads assigned to write data. When `0`, the writer jobs will use the shared pool.                               
+| pg.worker.affinity                  | -1,-1        |    Comma-separated list of thread numbers which should be pinned for Postgres ingestion. Example `line.tcp.worker.affinity=1,2,3`.          |
+| pg.halt.on.error                    | false        |    Whether ingestion should stop upon internal error         |
 | pg.daemon.pool                      | true         |             |
 
 ### InfluxDB line protocol (TCP)
@@ -285,14 +285,14 @@ line protocol over TCP.
 | line.tcp.net.interest.queue.capacity | 1024         |  Backlog argument value for [listen()](https://man7.org/linux/man-pages/man2/listen.2.html) call.                                                                                                                                                                                        |                  |
 | line.tcp.net.listen.backlog          | 50000        |  Maximum send buffer size on each TCP socket. If value is -1 socket send buffer remains unchanged from OS default.                                                                                                                                                                       |                  |
 | line.tcp.net.recv.buf.size           | -1           |  Maximum receive buffer size on each TCP socket. If value is -1, the socket receive buffer remains unchanged from OS default.                                                                                                                                                            |                  |
-| line.tcp.connection.pool.capacity    | 64           |                                                                                                                                               |
+| line.tcp.connection.pool.capacity    | 64           | The maximum amount of pooled connections this interface may have                                                                                                                                              |
 | line.tcp.timestamp                   | n            | Input timestamp resolution. Possible values are `n`, `u`, `ms`, `s` and `h`.                                                                  |
 | line.tcp.msg.buffer.size             | 2048         | Size of the buffer read from queue. Maximum size of write request, regardless of the number of measurements.                                  |
 | line.tcp.max.measurement.size        | 2048         | Maximum size of any measurement.                                                                                                              |
 | line.tcp.writer.queue.size           | 128          | Size of the queue between network IO and writer jobs. Each queue entry represents a measurement.                                              |
 | line.tcp.worker.count                | 0            | Number of dedicated worker threads assigned to write data. When `0`, the writer jobs will use the shared pool.                                |
 | line.tcp.worker.affinity             | 0            | Comma-separated list of thread numbers which should be pinned for line protocol ingestion over TCP. Example `line.tcp.worker.affinity=1,3,4`. |
-| line.tcp.halt.on.error               | false        |                                                                                                                                               |
+| line.tcp.halt.on.error               | false        | Whether ingestion should stop upon internal error                                                                                                                                               |
 
 ### InfluxDB line protocol (UDP)
 
